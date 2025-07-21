@@ -1,5 +1,6 @@
 package com.amit.projectmanagementsystem.controller;
 
+import com.amit.projectmanagementsystem.config.JwtProvider;
 import com.amit.projectmanagementsystem.model.Chat;
 import com.amit.projectmanagementsystem.model.Invitation;
 import com.amit.projectmanagementsystem.model.Project;
@@ -51,6 +52,14 @@ public class ProjectController {
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
+    @PostMapping()
+    public ResponseEntity<Project> createProjectHandler(@RequestBody Project project,
+                                                        @RequestHeader("Authorization") String jwt) throws Exception {
+        User user = userService.findUserProfileByJwt(jwt);
+        Project createdProject = projectService.createdProject(project, user);
+        return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
+    }
+
     @PostMapping("/invite")
     public ResponseEntity<MessageResponse> inviteProject(
             @RequestBody InviteRequest req,
@@ -99,7 +108,7 @@ public class ProjectController {
     @GetMapping("/{projectId}/chat")
     public ResponseEntity<Chat> getChatByProjectId(
             @PathVariable Long projectId,
-            @RequestHeader("Authentication") String jwt
+            @RequestHeader("Authorization") String jwt
     )throws Exception{
         User user=userService.findUserProfileByJwt(jwt);
         Chat chat=projectService.getChatByProjectId(projectId);
