@@ -5,7 +5,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import React from "react";
 import IssueCard from "./IssueCard";
 import { Button } from "@/components/ui/button";
@@ -22,7 +28,9 @@ const IssueList = ({ title, status }) => {
           </CardHeader>
           <CardContent className="px-2">
             <div className="space-y-2">
-              {[1,1,1].map((item)=><IssueCard key={item} />)}
+              {[1, 1, 1].map((item) => (
+                <IssueCard key={item} />
+              ))}
             </div>
           </CardContent>
           <CardFooter>
@@ -31,17 +39,17 @@ const IssueList = ({ title, status }) => {
                 variant="outline"
                 className="w-full flex items-center gap-2"
               >
-                <PlusIcon/>
+                <PlusIcon />
                 Create Issue
               </Button>
             </DialogTrigger>
           </CardFooter>
         </Card>
         <DialogContent>
-            <DialogHeader>
-                <DialogTitle>Create New Issue</DialogTitle>
-            </DialogHeader>
-            <CreateIssueForm/>
+          <DialogHeader>
+            <DialogTitle>Create New Issue</DialogTitle>
+          </DialogHeader>
+          <CreateIssueForm />
         </DialogContent>
       </Dialog>
     </div>
